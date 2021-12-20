@@ -9,7 +9,7 @@ export default function Register() {
 
   const onFinish = (values: any) => {
     console.log('Success:', values);
-    
+
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -89,7 +89,7 @@ export default function Register() {
                       },
                       {
                         required: true,
-                        message: 'Porfavor ingrese su E-mail!',
+                        message: 'Porfavor ingrese su E-mail.',
                       },
                     ]}>
                       <Input placeholder="Email *" />
@@ -100,13 +100,14 @@ export default function Register() {
                     <Form.Item name="phone" style={{ marginBottom: 14 }} rules={[
                       {
                         required: true,
+                        type: "number",
                         message: 'Porfavor ingrese su teléfono.',
                       },
                       {
                         min: 8,
                         max: 8,
                         message: 'El largo de su teléfono no es válido.',
-                      }
+                      },
                     ]}>
                       <Input
                         addonBefore={
@@ -188,7 +189,7 @@ export default function Register() {
                           <Link
                             to="/"
                           >
-                            Ye tengo una cuenta
+                            Ya tengo una cuenta
                           </Link>
                         </Col>
                       </Row>
