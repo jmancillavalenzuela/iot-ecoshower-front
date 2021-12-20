@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
 
 export default function Recovery() {
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
+
   return (
     <>
       <Row>
@@ -38,8 +46,8 @@ export default function Recovery() {
                 className="white-bg"
                 layout="vertical"
                 name="basic"
-                onFinish={() => {}}
-                onFinishFailed={() => {}}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
                 autoComplete="off"
                 size="middle"
               >
@@ -48,16 +56,17 @@ export default function Recovery() {
                 >
                   Restablecer Contraseña
                 </Title>
-                <Form.Item name="email" style={{ marginBottom: 0 }}>
-                  <Input placeholder="Email" />
-                </Form.Item>
-                <Title
-                  style={{ textAlign: "center", fontSize: 15, paddingTop: 5 }}
-                >
-                  ó{" "}
-                </Title>
-                <Form.Item name="contrasena" style={{ marginBottom: 30 }}>
-                  <Input.Password placeholder="Contraseña" />
+                <Form.Item name="email" style={{ marginBottom: 14 }} rules={[
+                  {
+                    type: 'email',
+                    message: 'El texto ingresado no es un E-mail válido!',
+                  },
+                  {
+                    required: true,
+                    message: 'Porfavor ingrese su E-mail!',
+                  },
+                ]}>
+                  <Input placeholder="Email *" />
                 </Form.Item>
                 <Form.Item>
                   <Row>
