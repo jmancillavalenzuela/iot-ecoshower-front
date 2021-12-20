@@ -2,9 +2,19 @@ import { Button, Checkbox, Col, Form, Input, Row, Select } from "antd";
 import Title from "antd/lib/typography/Title";
 import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
+import { hasNumber } from "../utils/validator";
 
 export default function Register() {
   const { Option } = Select;
+
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+    
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
     <>
@@ -50,8 +60,8 @@ export default function Register() {
                     className="white-bg"
                     layout="vertical"
                     name="basic"
-                    onFinish={() => {}}
-                    onFinishFailed={() => {}}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     size="middle"
                   >
@@ -60,34 +70,99 @@ export default function Register() {
                     >
                       Registro
                     </Title>
-                    <Form.Item name="nombre" style={{ marginBottom: 14 }}>
-                      <Input placeholder="Nombre*" />
+                    <Form.Item name="fullName" style={{ marginBottom: 14 }} rules={[
+                      {
+                        required: true,
+                        message: 'Porfavor ingrese su Nombre Completo',
+                      },
+                      {
+                        min: 3,
+                        message: 'El Nombre no es válido',
+                      },
+                    ]}>
+                      <Input placeholder="Nombre Completo *" />
                     </Form.Item>
-                    <Form.Item name="email" style={{ marginBottom: 14 }}>
-                      <Input placeholder="Email*" />
+                    <Form.Item name="email" style={{ marginBottom: 14 }} rules={[
+                      {
+                        type: 'email',
+                        message: 'El E-mail ingresado no es válido.',
+                      },
+                      {
+                        required: true,
+                        message: 'Porfavor ingrese su E-mail!',
+                      },
+                    ]}>
+                      <Input placeholder="Email *" />
                     </Form.Item>
-                    <Form.Item name="direccion" style={{ marginBottom: 14 }}>
-                      <Input placeholder="Dirección/Ciudad/Región*" />
+                    <Form.Item name="address" style={{ marginBottom: 14 }}>
+                      <Input placeholder="Dirección/Ciudad/Región" />
                     </Form.Item>
-                    <Form.Item name="telefono" style={{ marginBottom: 14 }}>
+                    <Form.Item name="phone" style={{ marginBottom: 14 }} rules={[
+                      {
+                        required: true,
+                        message: 'Porfavor ingrese su teléfono.',
+                      },
+                      {
+                        min: 8,
+                        max: 8,
+                        message: 'El largo de su teléfono no es válido.',
+                      }
+                    ]}>
                       <Input
                         addonBefore={
-                          <Select defaultValue="+569">
-                            <Option value="+569">+569</Option>
+                          <Select defaultValue="+56 9">
+                            <Option value="+56 9">+56 9</Option>
                           </Select>
                         }
-                        placeholder="*"
+                        placeholder="Teléfono *"
                       />
                     </Form.Item>
-                    <Form.Item name="usuario" style={{ marginBottom: 14 }}>
-                      <Input.Password placeholder="Ingrese el usuario" />
+                    <Form.Item name="password" style={{ marginBottom: 14 }} rules={[
+                      {
+                        required: true,
+                        message: 'Porfavor ingrese su contraseña.',
+                      },
+                      {
+                        min: 6,
+                        message: 'La contraseña debe tener almenos 6 carácteres.',
+                      },
+                      {
+                        max: 10,
+                        message: 'La contraseña debe tener menos de 10 carácteres.',
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (value && !hasNumber(value)) {
+                            return Promise.reject(new Error("La contraseña debe tener al menos un número."))
+                          } else {
+                            console.log(value)
+                            return Promise.resolve();
+                          }
+                        }
+                      }),
+                    ]}>
+                      <Input.Password placeholder="Contraseña *" />
                     </Form.Item>
-                    <Form.Item name="contrasena" style={{ marginBottom: 14 }}>
-                      <Input.Password placeholder="Confirmar contraseña" />
+                    <Form.Item name="confirmPassword" style={{ marginBottom: 14 }} rules={[
+                      {
+                        required: true,
+                        message: 'Porfavor confirme su contraseña.',
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue('password') === value) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject(new Error('Las contraseñas ingresadas no son iguales.'));
+                        },
+                      }),
+                    ]}
+                    >
+                      <Input.Password placeholder="Confirmar Contraseña *" />
                     </Form.Item>
                     <Form.Item style={{ marginBottom: 14 }}>
                       <Row>
-                        <Col xs={24} onClick={() => {}}>
+                        <Col xs={24} onClick={() => { }}>
                           <Checkbox checked={true}>
                             Aceptar Términos y Condiciones
                           </Checkbox>
@@ -124,7 +199,7 @@ export default function Register() {
             </Col>
           </Row>
         </Col>
-      </Row>
+      </Row >
     </>
   );
 }

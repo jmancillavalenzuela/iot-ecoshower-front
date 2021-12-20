@@ -1,9 +1,18 @@
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Checkbox, Col, Form, Input, Row } from "antd";
 import Title from "antd/lib/typography/Title";
 import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
 
 export default function Login() {
+
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
+
   return (
     <>
       <Row
@@ -47,26 +56,52 @@ export default function Login() {
                     }}
                     className="white-bg"
                     layout="vertical"
-                    name="basic"
-                    onFinish={() => {}}
-                    onFinishFailed={() => {}}
+                    name="login"
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     size="middle"
+                    initialValues={{ remember: true }}
                   >
                     <Title
                       style={{ textAlign: "center", fontSize: 17, padding: 13 }}
                     >
                       Iniciar sesión
                     </Title>
-                    <Form.Item name="email" style={{ marginBottom: 14 }}>
+                    <Form.Item name="email" style={{ marginBottom: 14 }} rules={[
+                      {
+                        type: 'email',
+                        message: 'El E-mail ingresado no es válido.',
+                      },
+                      {
+                        required: true,
+                        message: 'Porfavor ingrese su E-mail.',
+                      },
+                    ]}>
                       <Input placeholder="Email" />
                     </Form.Item>
-                    <Form.Item name="contrasena" style={{ marginBottom: 14 }}>
+                    <Form.Item name="password" style={{ marginBottom: 14 }} rules={[
+                      {
+                        required: true,
+                        message: 'Porfavor ingrese su contraseña.',
+                      },
+                    ]}>
                       <Input.Password placeholder="Contraseña" />
                     </Form.Item>
-                    <Form.Item style={{ marginBottom: 14, textAlign: "left" }}>
-                      <Link to="/recuperar">Olvidé mi contraseña</Link>
-                    </Form.Item>
+                    <Row>
+                      <Col xs={12}>
+                        <Form.Item name="remember" valuePropName="checked" style={{ marginBottom: 14 }}>
+                          <Checkbox>
+                            Recordarme
+                          </Checkbox>
+                        </Form.Item>
+                      </Col>
+                      <Col xs={12}>
+                        <Form.Item style={{ marginBottom: 14, textAlign: "right" }}>
+                          <Link to="/recuperar">Olvidé mi contraseña</Link>
+                        </Form.Item>
+                      </Col>
+                    </Row>
                     <Form.Item>
                       <Row>
                         <Col xs={12}>
@@ -82,7 +117,7 @@ export default function Login() {
                             Iniciar sesión
                           </Button>
                         </Col>
-                        <Col xs={12} style={{ textAlign: "center", paddingTop: 4 }}>
+                        <Col xs={12} style={{ textAlign: "right", paddingTop: 4 }}>
                           <Link to="/registro">Registrarme</Link>
                         </Col>
                       </Row>
@@ -93,7 +128,7 @@ export default function Login() {
             </Col>
           </Row>
         </Col>
-      </Row>
+      </Row >
     </>
   );
 }
