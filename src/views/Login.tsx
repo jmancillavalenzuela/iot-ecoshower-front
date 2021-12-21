@@ -22,8 +22,8 @@ export default function Login() {
           position: "fixed",
         }}
       >
-        <Col xs={0} md={0} lg={12} className="left-image-register" />
-        <Col xs={24} md={24} lg={12}>
+        <Col xs={0} md={0} lg={8} className="left-image-login" />
+        <Col xs={24} md={24} lg={14}>
           <Row
             style={{
               height: "100%",
