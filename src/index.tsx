@@ -4,7 +4,7 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import esEs from "antd/es/locale/es_ES";
 import { ConfigProvider } from "antd";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import Routes from "./routes/routes";
 
 ReactDOM.render(
