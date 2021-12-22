@@ -1,4 +1,4 @@
-import { Button, Checkbox, Col, Form, Input, Row, Select } from "antd";
+import { Button, Checkbox, Col, Divider, Form, Input, Row, Select } from "antd";
 import Title from "antd/lib/typography/Title";
 import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
@@ -34,29 +34,11 @@ export default function Register() {
           <Col xs={24} style={{ margin: "auto" }}>
             <Row>
               <Col xs={24} style={{ textAlign: "center", marginBottom: 50 }}>
-                <img
-                  style={{
-                    margin: "auto",
-                    width: "20em",
-                    textAlign: "center",
-                  }}
-                  src={Logo}
-                  alt="logo"
-                />
+                <img className="logo" src={Logo} alt="logo" />
               </Col>
               <Col xs={24}>
                 <Form
-                  style={{
-                    width: "35em",
-                    margin: "auto",
-                    paddingLeft: 55,
-                    paddingRight: 55,
-                    paddingTop: 30,
-                    paddingBottom: 30,
-                    borderRadius: 20,
-                    background: "rgba(22, 152, 183, 0.14)",
-                  }}
-                  className="white-bg"
+                  className="form-contanier"
                   layout="vertical"
                   name="basic"
                   onFinish={onFinish}
@@ -190,7 +172,7 @@ export default function Register() {
                   </Form.Item>
                   <Form.Item>
                     <Row>
-                      <Col xs={12}>
+                      <Col xs={24} md={12}>
                         <Button
                           style={{
                             backgroundColor: "#9BC235",
@@ -203,7 +185,10 @@ export default function Register() {
                           Registrarme
                         </Button>
                       </Col>
-                      <Col xs={12} style={{ textAlign: "center", paddingTop: 4 }}>
+                      <Col>
+                          <Divider/>
+                      </Col>
+                      <Col xs={24} md={12} style={{ textAlign: "center", paddingTop: 4 }}>
                         <Link
                           to="/"
                         >

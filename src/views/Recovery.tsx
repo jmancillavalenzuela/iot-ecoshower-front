@@ -1,4 +1,4 @@
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
 import Title from "antd/lib/typography/Title";
 import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
@@ -25,24 +25,10 @@ export default function Recovery() {
         >
           <Col xs={24} style={{ margin: "auto" }}>
             <div style={{ textAlign: "center", marginBottom: 50 }}>
-              <img
-                style={{ margin: "auto", width: "20em", textAlign: "center" }}
-                src={Logo}
-                alt="logo"
-              />
+              <img className="logo" src={Logo} alt="logo" />
             </div>
             <Form
-              style={{
-                width: "35em",
-                margin: "auto",
-                paddingLeft: 55,
-                paddingRight: 55,
-                paddingTop: 30,
-                paddingBottom: 30,
-                borderRadius: 20,
-                background: "rgba(22, 152, 183, 0.14)",
-              }}
-              className="white-bg"
+              className="form-contanier"
               layout="vertical"
               name="basic"
               onFinish={onFinish}
@@ -70,7 +56,7 @@ export default function Recovery() {
               </Form.Item>
               <Form.Item>
                 <Row>
-                  <Col xs={12}>
+                  <Col xs={24} md={12}>
                     <Button
                       style={{ backgroundColor: "#9BC235", border: "none" }}
                       type="primary"
@@ -80,7 +66,10 @@ export default function Recovery() {
                       Recuperar contraseña
                     </Button>
                   </Col>
-                  <Col xs={12} style={{ textAlign: "center", paddingTop: 4 }}>
+                  <Col>
+                    <Divider/>
+                  </Col>
+                  <Col xs={24} md={12} style={{ textAlign: "center", paddingTop: 4 }}>
                     <Link to="/">Ya tengo cuenta</Link>
                   </Col>
                 </Row>
