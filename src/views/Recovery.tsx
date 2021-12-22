@@ -1,11 +1,24 @@
-import { Button, Col, Form, Input, Row } from "antd";
+import { sendPasswordResetEmail } from "@firebase/auth";
+import { Button, Col, Form, Input, message, Row } from "antd";
 import Title from "antd/lib/typography/Title";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
+import firebase from "../config/firebase";
+import { RECOVERY } from "../types/auth.types";
 
 export default function Recovery() {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const onFinish = (form: RECOVERY) => {
+    const auth = firebase.auth();
+
+    console.log(auth);
+    sendPasswordResetEmail(auth, form.email)
+      .then(() => {
+        console.log("password sent")
+        message.success(<code>Se ha enviado un correo a su email: <b>{form.email}</b> con intrucciones para restablecer su contraseña</code>, 10);
+      })
+      .catch((error) => {
+        message.error(<code> El email: <b>{form.email}</b> no se encuentra en nuestros registros</code>, 10);
+      });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -44,7 +57,7 @@ export default function Recovery() {
               }}
               className="white-bg"
               layout="vertical"
-              name="basic"
+              name="recoveryForm"
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"
@@ -90,5 +103,6 @@ export default function Recovery() {
         </Row>
       </Col>
     </Row>
+
   );
 }
