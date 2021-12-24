@@ -1,13 +1,26 @@
-import { Button, Checkbox, Col, Form, Input, Row } from "antd";
+import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence, browserLocalPersistence } from "firebase/auth";
+import { Button, Checkbox, Col, Form, Input, message, Row } from "antd";
 import Title from "antd/lib/typography/Title";
 import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
+import firebase from "../config/firebase";
+import { LOGIN } from "../types/auth.types";
 
 export default function Login() {
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
+  const onFinish = (form: LOGIN) => {
+    console.log('Success:', form);
+    const auth = firebase.auth();
+
+    console.log(auth);
+    setPersistence(auth, form.remember ? browserLocalPersistence : browserSessionPersistence)
+      .then(() => {
+        return signInWithEmailAndPassword(auth, form.email, form.password);
+      })
+      .catch((error) => {
+        message.error("Su E-mail y/o Contraseña no coinciden con nuestros registros", 10);
+      });
+  }
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);

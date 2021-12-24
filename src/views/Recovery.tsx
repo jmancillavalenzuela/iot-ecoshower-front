@@ -1,7 +1,7 @@
 import { sendPasswordResetEmail } from "@firebase/auth";
 import { Button, Col, Form, Input, message, Row } from "antd";
 import Title from "antd/lib/typography/Title";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
 import firebase from "../config/firebase";
 import { RECOVERY } from "../types/auth.types";
@@ -57,7 +57,7 @@ export default function Recovery() {
               }}
               className="white-bg"
               layout="vertical"
-              name="recoveryForm"
+              name="recovery"
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="off"

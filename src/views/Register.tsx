@@ -58,7 +58,7 @@ export default function Register() {
                   }}
                   className="white-bg"
                   layout="vertical"
-                  name="basic"
+                  name="register"
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
                   autoComplete="off"
@@ -179,13 +179,13 @@ export default function Register() {
                           ? Promise.resolve()
                           : Promise.reject(
                             new Error(
-                              'Para completar su registro, es necesario aceptar los Términos y Condiciones'
+                              'Para completar su registro, es necesario leer y aceptar los Términos & Condiciones'
                             )
                           )
                     }
                   ]}>
                     <Checkbox>
-                      Términos y Condiciones
+                      He leído y acepto los Términos y Condiciones
                     </Checkbox>
                   </Form.Item>
                   <Form.Item>
