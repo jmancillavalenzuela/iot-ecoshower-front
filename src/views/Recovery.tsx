@@ -1,5 +1,5 @@
 import { sendPasswordResetEmail } from "@firebase/auth";
-import { Button, Col, Form, Input, message, Row } from "antd";
+import { Button, Col, Divider, Form, Input, message, Row } from "antd";
 import Title from "antd/lib/typography/Title";
 import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
