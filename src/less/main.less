@@ -1,0 +1,116 @@
+@import "~antd/lib/style/themes/default.less";
+@import "~antd/dist/antd.less";
+
+@primary-color: #1698b7;
+
+.global__dynamic-bg {
+  background-color: @primary-color;
+}
+
+.global__dynamic-txt {
+  color: @primary-color;
+}
+
+.global__logo {
+  margin: auto;
+  width: 17em;
+  text-align: center;
+}
+
+.global__row {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+.global__form {
+  width: 35em;
+  margin: auto;
+  padding-left: 55px;
+  padding-right: 55px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-radius: 20px;
+  background: rgba(22, 152, 183, 0.14);
+}
+
+.login-less {
+  .login__left-image-login {
+    background-image: url(../../src/assets/images/left-image-login.png);
+    background-size: 100% 100%;
+  }
+  .login__row {
+    .global__row();
+  }
+  .login__form {
+    .global__form();
+  }
+}
+
+.recovery-less {
+  .recovery__row {
+    .global__row();
+  }
+  .recovery__form {
+    .global__form();
+  }
+}
+
+.register-less {
+  .register__left-image-register {
+    background-image: url(../../src/assets/images/left-image-register.png);
+    background-size: 100% 100%;
+  }
+  .register__row {
+    .global__row();
+  }
+  .register__form {
+    .global__form();
+  }
+}
+
+.dashboard-less {
+  @primary-color: #1698b7;
+
+  .dashboard__menu-row {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    text-align: center;
+    margin: auto;
+  }
+
+  // Sobreescritura ANTD
+
+  .ant-menu-horizontal {
+    justify-content: center;
+  }
+
+  .ant-col {
+    //margin: auto;
+    margin-top: 5px !important;
+  }
+
+  .ant-menu-title-content,
+  .-title-content {
+    font-size: 15px !important;
+    padding-top: 45px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .ant-menu-horizontal {
+    border-bottom: none;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .login__form,
+  .recovery__form,
+  .recovery__form {
+    width: 100vw;
+    border-radius: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
