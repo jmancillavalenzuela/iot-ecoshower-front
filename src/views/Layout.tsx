@@ -33,29 +33,29 @@ export default function DashboardLayout(props: Props) {
                   <Menu.Item key="perfil">
                     <Link to="/dashboard/mi-perfil">Perfil</Link>
                   </Menu.Item>
-                  <SubMenu key="Dashaboard" title="Dashaboard">
+                  <SubMenu key="Dashboard" title="Dashboard">
                     <Menu.ItemGroup>
-                      <Menu.Item key="Dashaboard:1">
+                      <Menu.Item key="Dashboard:1">
                         <Link to="/dashboard/cantidad-duchas">
                           Cantidad de Duchas
                         </Link>
                       </Menu.Item>
-                      <Menu.Item key="Dashaboard:2">
+                      <Menu.Item key="Dashboard:2">
                         <Link to="/dashboard/temperatura">
                           Gráfico de Temperatura
                         </Link>
                       </Menu.Item>
-                      <Menu.Item key="Dashaboard:3">
+                      <Menu.Item key="Dashboard:3">
                         <Link to="/dashboard/cantidad-dispositivos">
                           Cantidad de Dispositivos Registrados
                         </Link>
                       </Menu.Item>
-                      <Menu.Item key="Dashaboard:4">
+                      <Menu.Item key="Dashboard:4">
                         <Link to="/dashboard/agua-ahorrada">
                           Grafico de Agua Ahorrada
                         </Link>
                       </Menu.Item>
-                      <Menu.Item key="Dashaboard:5">
+                      <Menu.Item key="Dashboard:5">
                         <Link to="/dashboard/agua-utilizada">
                           Grafico de Agua Utilizada
                         </Link>

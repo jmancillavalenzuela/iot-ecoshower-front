@@ -6,12 +6,14 @@ import {
 } from "firebase/auth";
 import { Button, Checkbox, Col, Form, Input, message, Row } from "antd";
 import Title from "antd/lib/typography/Title";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
 import firebase from "../config/firebase";
 import { LOGIN } from "../types/auth.types";
 
 export default function Login() {
+  const history = useHistory();
+
   const onFinish = (form: LOGIN) => {
     console.log("Success:", form);
     const auth = firebase.auth();
@@ -21,8 +23,9 @@ export default function Login() {
       auth,
       form.remember ? browserLocalPersistence : browserSessionPersistence
     )
-      .then(() => {
-        return signInWithEmailAndPassword(auth, form.email, form.password);
+      .then(async () => {
+        await signInWithEmailAndPassword(auth, form.email, form.password);
+        history.push("/dashboard");
       })
       .catch((error) => {
         message.error(
@@ -103,7 +106,9 @@ export default function Login() {
                         </Form.Item>
                       </Col>
                       <Col xs={24} md={12}>
-                        <Form.Item style={{ marginBottom: 14, textAlign: "right" }}>
+                        <Form.Item
+                          style={{ marginBottom: 14, textAlign: "right" }}
+                        >
                           <Link to="/recuperar">Olvidé mi contraseña</Link>
                         </Form.Item>
                       </Col>
@@ -133,7 +138,7 @@ export default function Login() {
                         <Col
                           xs={24}
                           md={12}
-                          style={{ paddingTop: 4, textAlign:"right" }}
+                          style={{ paddingTop: 4, textAlign: "right" }}
                         >
                           <Link to="/registro">Registrarme</Link>
                         </Col>
