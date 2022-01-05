@@ -10,6 +10,7 @@ import { Link, useHistory } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
 import firebase from "../config/firebase";
 import { LOGIN } from "../types/auth.types";
+import { MESSAGE_TIMER } from "../utils/constant";
 
 export default function Login() {
   const history = useHistory();
@@ -30,7 +31,7 @@ export default function Login() {
       .catch((error) => {
         message.error(
           "Su E-mail y/o Contraseña no coinciden con nuestros registros",
-          10
+          MESSAGE_TIMER
         );
       });
   };

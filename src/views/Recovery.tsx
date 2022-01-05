@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
 import firebase from "../config/firebase";
 import { RECOVERY } from "../types/auth.types";
+import { MESSAGE_TIMER } from "../utils/constant";
 
 export default function Recovery() {
   const onFinish = (form: RECOVERY) => {
@@ -25,10 +26,9 @@ export default function Recovery() {
       .catch((error) => {
         message.error(
           <code>
-            {" "}
             El email: <b>{form.email}</b> no se encuentra en nuestros registros
           </code>,
-          10
+          MESSAGE_TIMER
         );
       });
   };
