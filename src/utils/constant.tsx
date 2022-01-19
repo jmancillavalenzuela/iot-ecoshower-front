@@ -1,1 +1,1 @@
-export const MESSAGE_TIMER = 5;
+export const MESSAGE_TIMER = 3;

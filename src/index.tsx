@@ -6,11 +6,14 @@ import esEs from "antd/es/locale/es_ES";
 import { ConfigProvider } from "antd";
 import "./less/main.less";
 import Routes from "./routes/routes";
+import { UserAuthContextProvider } from "./context/UserAuthContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ConfigProvider locale={esEs}>
-      <Routes />
+      <UserAuthContextProvider>
+        <Routes />
+      </UserAuthContextProvider>
     </ConfigProvider>
   </React.StrictMode>,
   document.getElementById("root")

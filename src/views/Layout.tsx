@@ -2,12 +2,15 @@ import { Col, Menu, Row } from "antd";
 import SubMenu from "antd/lib/menu/SubMenu";
 import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
+import { useUserAuth } from "../context/UserAuthContext";
 
 type Props = {
   children: JSX.Element;
 };
 
 export default function DashboardLayout(props: Props) {
+  const { logOut } = useUserAuth();
+
   return (
     <>
       <div className="dashboard-less">
@@ -18,9 +21,9 @@ export default function DashboardLayout(props: Props) {
             margin: "auto",
           }}
         >
-          <Col xs={0} md={0} lg={15} style={{ margin: "5px auto" }}>
+          <Col lg={15} style={{ margin: "5px auto" }}>
             <Row>
-              <Col xs={10} style={{ textAlign: "center" }}>
+              <Col xs={0} lg={10} style={{ textAlign: "center" }}>
                 <img
                   style={{ paddingTop: 15 }}
                   src={Logo}
@@ -52,18 +55,20 @@ export default function DashboardLayout(props: Props) {
                       </Menu.Item>
                       <Menu.Item key="Dashboard:4">
                         <Link to="/dashboard/agua-ahorrada">
-                          Grafico de Agua Ahorrada
+                          Gráfico de Agua Ahorrada
                         </Link>
                       </Menu.Item>
                       <Menu.Item key="Dashboard:5">
                         <Link to="/dashboard/agua-utilizada">
-                          Grafico de Agua Utilizada
+                          Gráfico de Agua Utilizada
                         </Link>
                       </Menu.Item>
                     </Menu.ItemGroup>
                   </SubMenu>
                   <SubMenu key="Dispositivos" title="Dispositivos"></SubMenu>
-                  <Menu.Item key="logout">Logout</Menu.Item>
+                  <Menu.Item key="logout" onClick={logOut}>
+                    <Link to="/">Salir</Link>
+                  </Menu.Item>
                 </Menu>
               </Col>
               <Col xs={24}>{props.children}</Col>

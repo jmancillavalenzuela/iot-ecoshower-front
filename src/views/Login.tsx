@@ -1,39 +1,39 @@
-import {
-  setPersistence,
-  signInWithEmailAndPassword,
-  browserSessionPersistence,
-  browserLocalPersistence,
-} from "firebase/auth";
 import { Button, Checkbox, Col, Form, Input, message, Row } from "antd";
 import Title from "antd/lib/typography/Title";
 import { Link, useHistory } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
-import firebase from "../config/firebase";
 import { LOGIN } from "../types/auth.types";
+import { useUserAuth } from "../context/UserAuthContext";
 import { MESSAGE_TIMER } from "../utils/constant";
 
 export default function Login() {
   const history = useHistory();
+  const { logIn, googleSignIn } = useUserAuth();
 
-  const onFinish = (form: LOGIN) => {
-    console.log("Success:", form);
-    const auth = firebase.auth();
+  const onFinish = async (form: LOGIN) => {
+    try {
+      await logIn(form.email, form.password);
+      history.push("/dashboard");
+    } catch (err) {
+      message.error(
+        "Su E-mail y/o contraseña no coinciden con nuestros registros",
+        MESSAGE_TIMER
+      );
+      console.log(err);
+    }
+  };
 
-    console.log(auth);
-    setPersistence(
-      auth,
-      form.remember ? browserLocalPersistence : browserSessionPersistence
-    )
-      .then(async () => {
-        await signInWithEmailAndPassword(auth, form.email, form.password);
-        history.push("/dashboard");
-      })
-      .catch((error) => {
-        message.error(
-          "Su E-mail y/o Contraseña no coinciden con nuestros registros",
-          MESSAGE_TIMER
-        );
-      });
+  const handleGoogleSignIn = async (form: LOGIN) => {
+    try {
+      await googleSignIn();
+      history.push("/dashboard");
+    } catch (err) {
+      message.error(
+        "Se ha producido un error al intentar Iniciar Sesión",
+        MESSAGE_TIMER
+      );
+      console.log(err);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
