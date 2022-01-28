@@ -1,20 +1,75 @@
-import { Button, Checkbox, Col, Divider, Form, Input, Row, Select } from "antd";
+import {
+  Button,
+  Cascader,
+  Checkbox,
+  Col,
+  Divider,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Modal,
+  Row,
+  Select,
+} from "antd";
 import Title from "antd/lib/typography/Title";
 import { Link } from "react-router-dom";
 import Logo from "../../src/assets/logo/ecoshower.png";
-import { hasNumber } from "../utils/validator";
+import { SIGN_UP_DATA } from "../types/auth.types";
+import { MESSAGE_TIMER } from "../utils/constant";
+import { formatRun, hasNumber, rut } from "../utils/validator";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import chileComunes from "../utils/chileComunes.json";
+import { signup } from "../services/publicServices";
 
 export default function Register() {
   const { Option } = Select;
+  const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const onFinish = async (form: SIGN_UP_DATA) => {
+    console.log("Success:", form);
+    try {
+      const data = {
+        rut: form.rut,
+        email: form.email,
+        password: form.password,
+        displayName: form.name,
+        address: form.address,
+        country: form.countryStateCity[0],
+        state: form.countryStateCity[1],
+        city: form.countryStateCity[2],
+      };
+      const register = await signup(data);
+      console.log(register);
+      message.success(
+        "Su cuenta ha sido creada, por favor verifíquela haciendo clic en el enlace de activación que ha sido enviado a su correo electrónico",
+        MESSAGE_TIMER
+      );
+    } catch (err) {
+      message.error(
+        "Ha ocurrido un error, por favor inténtelo de nuevo más tarde",
+        MESSAGE_TIMER
+      );
+      console.log(err);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
-
+  const confirm = () => {
+    Modal.info({
+      title: "Términos y Condiciones",
+      icon: <ExclamationCircleOutlined />,
+      centered: true,
+      maskClosable: true,
+      width: 1000,
+      keyboard: true,
+      focusTriggerAfterClose: true,
+      bodyStyle: { overflowY: "auto" },
+      content: <p style={{ paddingRight: 20 }}>Terminos y condiciones</p>,
+    });
+  };
   return (
     <div className="register-less">
       <Row className="register__row">
@@ -41,6 +96,7 @@ export default function Register() {
                     size="middle"
                     initialValues={{ remember: true }}
                     scrollToFirstError
+                    form={form}
                   >
                     <Title
                       style={{ textAlign: "center", fontSize: 17, padding: 13 }}
@@ -48,7 +104,7 @@ export default function Register() {
                       Registro
                     </Title>
                     <Form.Item
-                      name="fullName"
+                      name="name"
                       style={{ marginBottom: 14 }}
                       rules={[
                         {
@@ -68,7 +124,6 @@ export default function Register() {
                                 )
                               );
                             } else {
-                              console.log(value);
                               return Promise.resolve();
                             }
                           },
@@ -93,8 +148,46 @@ export default function Register() {
                     >
                       <Input placeholder="Email *" />
                     </Form.Item>
+                    <Form.Item
+                      name="rut"
+                      rules={[
+                        {
+                          validator(_, value) {
+                            if (rut(value)) {
+                              return Promise.resolve();
+                            }
+                            return Promise.reject(
+                              new Error("El RUT ingresado No es Válido")
+                            );
+                          },
+                        },
+                      ]}
+                    >
+                      <Input
+                        placeholder={"Rut *"}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          form.setFieldsValue({
+                            rut: formatRun(e.target.value),
+                          });
+                        }}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      name="countryStateCity"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Debe ingresar un País/Región/Comuna.",
+                        },
+                      ]}
+                    >
+                      <Cascader
+                        options={chileComunes}
+                        placeholder="País/Región/Comuna..."
+                      />
+                    </Form.Item>
                     <Form.Item name="address" style={{ marginBottom: 14 }}>
-                      <Input placeholder="Dirección/Ciudad/Región" />
+                      <Input placeholder="Dirección" />
                     </Form.Item>
                     <Form.Item
                       name="phone"
@@ -102,7 +195,6 @@ export default function Register() {
                       rules={[
                         {
                           required: true,
-                          type: "number",
                           message: "Porfavor ingrese su teléfono.",
                         },
                         {
@@ -110,6 +202,20 @@ export default function Register() {
                           max: 8,
                           message: "El largo de su teléfono no es válido.",
                         },
+                        ({ getFieldValue }) => ({
+                          validator(_, value) {
+                            if (value && isNaN(value)) {
+                              return Promise.reject(
+                                new Error(
+                                  "El número ingresado no es un válido."
+                                )
+                              );
+                            } else {
+                              console.log(value);
+                              return Promise.resolve();
+                            }
+                          },
+                        }),
                       ]}
                     >
                       <Input
@@ -182,7 +288,7 @@ export default function Register() {
                       <Input.Password placeholder="Confirmar Contraseña *" />
                     </Form.Item>
                     <Form.Item
-                      name="remember"
+                      name="acceptTC"
                       valuePropName="checked"
                       style={{ marginBottom: 14 }}
                       rules={[
@@ -199,7 +305,14 @@ export default function Register() {
                       ]}
                     >
                       <Checkbox>
-                        He leído y acepto los Términos y Condiciones
+                        He leído y acepto los{" "}
+                        <Button
+                          type="link"
+                          style={{ padding: 0 }}
+                          onClick={() => confirm()}
+                        >
+                          Términos y Condiciones
+                        </Button>
                       </Checkbox>
                     </Form.Item>
                     <Form.Item>

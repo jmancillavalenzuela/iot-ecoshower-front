@@ -14,3 +14,15 @@ export interface UPDATE_USER {
     country: string
     state: string
   }
+  
+  export interface SIGN_UP_DATA {
+    name: string
+    rut: string
+    email: string
+    prefix: number
+    phone: number
+    address: string
+    countryStateCity: string[]
+    password: string
+    acceptTC: boolean
+  }
