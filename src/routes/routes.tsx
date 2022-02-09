@@ -8,13 +8,15 @@ import GraficoComponent from "../views/dashboard/grafico";
 import PerfilComponent from "../views/dashboard/perfil";
 import PrivateRoute from "./private-route";
 import PublicRoute from "./public-route";
+import DevicesList from "../views/dashboard/devices/devices";
+import DeviceInfo from "../views/dashboard/devices/data";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Switch>
-        <PublicRoute path="/registro" exact component={Register} />
-        <PublicRoute path="/recuperar" exact component={Recovery} />
+        <PublicRoute path="/register" exact component={Register} />
+        <PublicRoute path="/recovery" exact component={Recovery} />
         <PublicRoute path="/" exact component={Login} />
         <DashboardLayout>
           <>
@@ -44,9 +46,20 @@ export default function Router() {
               component={GraficoComponent}
             />
             <PrivateRoute
-              path="/dashboard/mi-perfil"
+              path="/dashboard/profile"
               exact
               component={PerfilComponent}
+            />
+
+            <PrivateRoute
+              path="/dashboard/devices"
+              exact
+              component={DevicesList}
+            />
+            <PrivateRoute
+              exact
+              path="/dashboard/MyDevices/me/:id"
+              component={() => <DeviceInfo />}
             />
           </>
         </DashboardLayout>

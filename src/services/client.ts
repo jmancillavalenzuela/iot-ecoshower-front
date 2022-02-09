@@ -1,4 +1,6 @@
 import axios from "axios";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/config";
 // PUBLIC ENDPOINTS
 export const publicClient = axios.create({
   baseURL: process.env.REACT_APP_ENDPOINT_API,
@@ -42,30 +44,33 @@ privateClient.interceptors.request.use(
   }
 );
 
-/* 
 privateClient.interceptors.response.use(
   (response) => response,
   async (err) => {
     if (!err.response) {
-      return Promise.reject(err)
+      return Promise.reject(err);
     }
 
     if (err.response.status !== 401) {
-      return Promise.reject(err)
+      return Promise.reject(err);
     }
 
     if (err.response.status === 401) {
       try {
-        const token = await getToken()
+        let token;
+        const userData = await auth.currentUser;
+        if (userData) {
+          token = await userData.getIdToken(true);
+        }
         if (token) {
-          localStorage.setItem('token', token)
+          localStorage.setItem("token", token);
         }
 
-        return Promise.resolve(privateClient(err.response.config))
+        return Promise.resolve(privateClient(err.response.config));
       } catch (e) {
-        await logOut()
+        return signOut(auth);
       }
     }
-    return Promise.reject(err)
+    return Promise.reject(err);
   }
-) */
+);

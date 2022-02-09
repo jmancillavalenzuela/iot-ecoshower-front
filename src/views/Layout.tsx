@@ -34,8 +34,9 @@ export default function DashboardLayout(props: Props) {
               <Col xs={14} style={{ margin: "5px auto" }}>
                 <Menu onClick={() => {}} mode="horizontal">
                   <Menu.Item key="perfil">
-                    <Link to="/dashboard/mi-perfil">Perfil</Link>
+                    <Link to="/dashboard/profile">Perfil</Link>
                   </Menu.Item>
+                  {/* 
                   <SubMenu key="Dashboard" title="Dashboard">
                     <Menu.ItemGroup>
                       <Menu.Item key="Dashboard:1">
@@ -49,7 +50,7 @@ export default function DashboardLayout(props: Props) {
                         </Link>
                       </Menu.Item>
                       <Menu.Item key="Dashboard:3">
-                        <Link to="/dashboard/cantidad-dispositivos">
+                        <Link to="/dashboard/devices">
                           Cantidad de Dispositivos Registrados
                         </Link>
                       </Menu.Item>
@@ -64,8 +65,10 @@ export default function DashboardLayout(props: Props) {
                         </Link>
                       </Menu.Item>
                     </Menu.ItemGroup>
-                  </SubMenu>
-                  <SubMenu key="Dispositivos" title="Dispositivos"></SubMenu>
+                  </SubMenu> */}
+                  <Menu.Item key="devices">
+                    <Link to="/dashboard/devices">Dispositivos</Link>
+                  </Menu.Item>
                   <Menu.Item key="logout" onClick={logOut}>
                     <Link to="/">Salir</Link>
                   </Menu.Item>

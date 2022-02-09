@@ -13,7 +13,7 @@ export default function Login() {
   const onFinish = async (form: LOGIN) => {
     try {
       await logIn(form.email, form.password);
-      history.push("/dashboard");
+      history.push("dashboard/devices");
     } catch (err) {
       message.error(
         "Su E-mail y/o contraseña no coinciden con nuestros registros",
@@ -110,7 +110,7 @@ export default function Login() {
                         <Form.Item
                           style={{ marginBottom: 14, textAlign: "right" }}
                         >
-                          <Link to="/recuperar">Olvidé mi contraseña</Link>
+                          <Link to="/recovery">Olvidé mi contraseña</Link>
                         </Form.Item>
                       </Col>
                     </Row>
@@ -141,7 +141,7 @@ export default function Login() {
                           md={12}
                           style={{ paddingTop: 4, textAlign: "right" }}
                         >
-                          <Link to="/registro">Registrarme</Link>
+                          <Link to="/register">Registrarme</Link>
                         </Col>
                       </Row>
                     </Form.Item>
